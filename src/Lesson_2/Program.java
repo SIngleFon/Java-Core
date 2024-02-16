@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Program {
 
-    private static final char DOT_HUMAN = 'X';
-    private static final char DOT_AI = '○';
+    private static  char DOT_HUMAN = 'X';
+    private static  char DOT_AI = '○';
     private static final char DOT_EMPTY = ' ';
     private static final Scanner scanner = new Scanner(System.in);
     private static final Random random = new Random();
@@ -61,11 +61,11 @@ public class Program {
      */
     static void printField(){
         System.out.println("------------------");
-        System.out.print("+");
+        System.out.print(" ");
         for (int i = 0; i < fieldSize; i++){
-            System.out.print("-" + (i + 1));
+            System.out.print(" " + (i + 1));
         }
-        System.out.println("-");
+        System.out.println(" ");
 
         for (int x = 0; x < fieldSize; x++){
             System.out.print(x + 1 + "|");
@@ -285,6 +285,41 @@ public class Program {
                 +".\n\tAI: " + WINAI+".\n\tDRAW: "+DRAW + ".\n------------------");
     }
 
+    private static void edit_symb(){
+        boolean flag = true;
+        while(flag) {
+            System.out.println("------------------\nChoose: \n\t1. Human: " + DOT_HUMAN +
+                    ".\n\t2. AI: " + DOT_AI + ".\n\t3. Default settings.\n\t4. Exit\n------------------");
+            System.out.print("\tEnter: ");
+            int key = scanner.nextInt();
+            switch (key) {
+                case 1:
+                    System.out.print("Write your symbols: ");
+                    char temp = scanner.next().charAt(0);
+                    if ( temp != DOT_AI){
+                        DOT_HUMAN = temp;
+                        System.out.println("------------------\nДля HUMAN установлен новый символ - "+temp );
+                    }else{System.out.println("------------------\nВыберите другой символ!");}
+                    break;
+                case 2:
+                    System.out.print("Write your symbols: ");
+                    char temp2 = scanner.next().charAt(0);
+                    if ( temp2 != DOT_HUMAN){
+                        DOT_AI = temp2;
+                        System.out.println("------------------\nДля AI установлен новый символ - "+temp2 );
+                    }else{System.out.println("------------------\nВыберите другой символ!");}
+                    break;
+                case 3:
+                    DOT_HUMAN = 'X';
+                    DOT_AI = '○';
+                    break;
+                case 4:
+                    flag = false;
+                    break;
+            }
+        }
+    }
+
     /**
      * Начало игры - СТАРТ
      */
@@ -320,8 +355,8 @@ public class Program {
         boolean flag = true;
         while (flag){
             System.out.print("------------------\n   ✖ & ○   "
-                    + "\n1. START\n2. Settings\n3. State\n4. Use TEST(Glitch) version With AI. STATUS: " +
-                    TESTVERSION + "\n5. Exit \n------------------\n\tEnter: ");
+                    + "\n1. START\n2. Settings game\n3. State\n4. Use TEST(Glitch) version With AI. STATUS: " +
+                    TESTVERSION + "\n5. Edit symb\n6. Exit \n------------------\n\tEnter: ");
             int key = scanner.nextInt();
             switch (key){
                 case 1:
@@ -339,6 +374,9 @@ public class Program {
                     }else{TESTVERSION = "ENABLED";}
                     break;
                 case 5:
+                    edit_symb();
+                    break;
+                case 6:
                     flag = false;
             }
         }
